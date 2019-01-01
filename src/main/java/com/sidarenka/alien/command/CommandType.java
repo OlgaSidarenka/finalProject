@@ -1,0 +1,19 @@
+package com.sidarenka.alien.command;
+
+public enum CommandType {
+    LOGIN,
+    REGISTRATION,
+    LOGOUT,
+    GOTOREGISTRATIONPAGE,
+    GO_TO_MAIN_PAGE,
+    SEE_REVIEWS,
+    ADD_REVIEW,
+    CHANGE_LANGUAGE,
+    SHOW_USERS,
+    SHOW_ALIENS,
+    ADD_ALIEN,
+    FILL_NEW_ALIEN_DATA,
+    CHANGE_USER_STATUS,
+    RATE_ALIEN,
+    SHOW_ALIEN_BY_NAME
+}
