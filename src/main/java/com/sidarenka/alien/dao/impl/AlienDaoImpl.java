@@ -115,10 +115,8 @@ public class AlienDaoImpl implements AlienDao {
     public void create(Alien alien) throws DaoException {
         ProxyConnection connection = null;
         PreparedStatement statement = null;
-
         try {
             connection = ConnectionPool.getInstance().takeConnection();
-
             statement = connection.prepareStatement(SQL_INSERT_ALIEN);
             statement.setString(1, alien.getAlienName());
             statement.setString(2, alien.getDescription());

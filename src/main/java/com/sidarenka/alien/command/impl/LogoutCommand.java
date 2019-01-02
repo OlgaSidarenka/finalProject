@@ -10,6 +10,5 @@ public class LogoutCommand implements Command {
         String page = ConfigurationManager.getProperty("path.page.index");
         request.getSession().invalidate();
         return page;
-
     }
 }

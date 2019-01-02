@@ -13,7 +13,6 @@ public class RoleRedirectFilter implements Filter {
     public void init(FilterConfig filterConfig) throws ServletException {
 
     }
-
     @Override
 public void doFilter(ServletRequest request, ServletResponse response,    FilterChain chain) throws IOException, ServletException {
     HttpServletRequest req = (HttpServletRequest) request;
@@ -24,7 +23,8 @@ public void doFilter(ServletRequest request, ServletResponse response,    Filter
              session.setAttribute("userType", type);
              RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/jsp/main.jsp");
              dispatcher.forward(req, resp);
-             return;  }    // pass the request along the filter
+             return;
+        }    // pass the request along the filter
 
     }
 

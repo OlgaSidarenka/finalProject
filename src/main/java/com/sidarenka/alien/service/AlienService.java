@@ -123,7 +123,7 @@ public class AlienService {
         }
         return aliens;
     }
-//TODO
+
     public Mark addMark(long alienId, long userId, int mark) throws ServiceException {
         DaoFactory daoFactory = DaoFactory.getInstance();
         AlienDaoImpl alienDaoImpl = daoFactory.getAlienDaoImpl();

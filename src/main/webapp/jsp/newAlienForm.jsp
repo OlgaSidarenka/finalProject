@@ -17,19 +17,19 @@
             <input type="text" placeholder=
             <fmt:message key="label.alienName"/> name="alienName" value=""/>
             <input type="text" placeholder=
-            <fmt:message key="label.alienHomeland"/> name="alienHomeland" value=""/>
+            <fmt:message key="label.alienHomeland"/> name="alienHomeland" required value=""/>
 
             <input type="text" placeholder=
-            <fmt:message key="label.alienDescription"/> name="alienDescription" value=""/>
+            <fmt:message key="label.alienDescription"/> name="alienDescription" required value=""/>
             <fmt:message key="label.submit.send" var="buttonValue"/>
             <input type="submit" id="submit" value="${buttonValue}">
             <%--<p class="message"><fmt:message key="label.notregistrated"/> <a--%>
             <%--href="controller?command=goToRegistrationPage"><fmt:message key="label.registration"/></a></p>--%>
             <%--<p align="center" class="message"> ${errorLoginPassMessage} <br/> ${wrongAction} <br/> ${nullPage} </p>--%>
             <%--</form>--%>
-            <c:if test="${not empty wrongInfoData}">
+            <c:if test="${not empty infoData}">
             <div class="alert-danger" align="centre">
-                    ${wrongInfoData}
+                    ${infoData}
             </div>
             </c:if>
     </div>
