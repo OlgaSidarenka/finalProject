@@ -14,18 +14,17 @@
         <exception-type>java.lang.RuntimeException</exception-type>
         <location>/jsp/error/error.jsp</location>
     </error-page>
-    <!--<filter>-->
-        <!--<filter-name>PageRedirectSecurityFilter</filter-name>-->
-        <!--<filter-class>com.sidarenka.alien.controller.PageRedirectSecurityFilter</filter-class>-->
-        <!--&lt;!&ndash;<init-param>&ndash;&gt;-->
-            <!--&lt;!&ndash;<param-name>active</param-name>&ndash;&gt;-->
-            <!--&lt;!&ndash;<param-value>true</param-true>&ndash;&gt;-->
-        <!--&lt;!&ndash;</init-param>&ndash;&gt;-->
-    <!--</filter>-->
-
-    <!--<filter-mapping>-->
-        <!--<filter-name>PageRedirectSecurityFilter</filter-name>-->
-        <!--<url-pattern>jsp/*.jsp</url-pattern>-->
-    <!--</filter-mapping>-->
+    <filter>
+        <filter-name>pageRedirectSecurityFilter</filter-name>
+        <filter-class>com.sidarenka.alien.filter.SessionFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>pageRedirectSecurityFilter</filter-name>
+        <url-pattern>/app/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>sessionSecurityFilter</filter-name>
+        <url-pattern>/jsp/*</url-pattern>
+    </filter-mapping>
 </web-app>
         

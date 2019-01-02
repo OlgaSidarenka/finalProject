@@ -32,14 +32,18 @@ public class LogInCommand implements Command {
         String login = request.getParameter(PARAM_NAME_LOGIN);
         String password = request.getParameter(PARAM_NAME_PASSWORD);
         User currentUser = null;
+  //      RoleType roleType=null;
         try {
             currentUser = userService.login(login, password);
+  //         roleType=currentUser.getUserRole();
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
         }
         if (currentUser != null) {
             HttpSession session = request.getSession();
             session.setAttribute("user", currentUser);
+ //           session.setAttribute("roleType", roleType);
+
             List<Alien> aliens = null;
             try {
                 aliens = alienService.selectAll();
