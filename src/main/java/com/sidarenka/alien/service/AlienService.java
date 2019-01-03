@@ -3,6 +3,7 @@ package com.sidarenka.alien.service;
 import com.sidarenka.alien.dao.DaoFactory;
 import com.sidarenka.alien.dao.DaoException;
 import com.sidarenka.alien.dao.impl.AlienDaoImpl;
+import com.sidarenka.alien.dao.impl.UserDaoImpl;
 import com.sidarenka.alien.entity.Alien;
 import com.sidarenka.alien.entity.Homeland;
 import com.sidarenka.alien.entity.Mark;
@@ -57,7 +58,7 @@ public class AlienService {
         AlienDaoImpl alienDaoImpl = daoFactory.getAlienDaoImpl();
         Alien alien = new Alien();
         try {
-            alien=alienDaoImpl.findAlienByName1(alienName);
+            alien = alienDaoImpl.findAlienInformationByName(alienName);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -104,7 +105,6 @@ public class AlienService {
         DaoFactory daoFactory = DaoFactory.getInstance();
         AlienDaoImpl alienDaoImpl = daoFactory.getAlienDaoImpl();
         List<Alien> aliens = new ArrayList<>();
-
         try {
             addNewHomeland(homelandName);
             List<Homeland> homelands = alienDaoImpl.findHomelandByName(homelandName);
@@ -141,6 +141,19 @@ public class AlienService {
         return currentMark;
     }
 
+    public void updateDescription(String alienDescription, String alienName) throws ServiceException {
+        if (!AlienValidator.validateAlienDescription(alienDescription)) {
+            throw new ServiceException("Incorrect data for alien description");
+        }
+        DaoFactory daoFactory = DaoFactory.getInstance();
+        AlienDaoImpl alienDao = daoFactory.getAlienDaoImpl();
+
+        try {
+            alienDao.updateAlienDescription(alienDescription, alienName);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
 }
 
 

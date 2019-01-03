@@ -7,7 +7,7 @@
     <link href="css/index.css" rel="stylesheet">
 </head>
 <body>
-<%@ include file="header.jsp" %>
+<%@ include file="jsp/header.jsp" %>
 <div class="login-page">
     <div class="form">
         <h4><fmt:message key="label.registration"/></h4>

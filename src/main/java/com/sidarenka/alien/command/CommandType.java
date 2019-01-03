@@ -15,5 +15,6 @@ public enum CommandType {
     FILL_NEW_ALIEN_DATA,
     CHANGE_USER_STATUS,
     RATE_ALIEN,
-    SHOW_ALIEN_BY_NAME
+    SHOW_ALIEN_BY_NAME,
+    UPDATE_ALIEN
 }

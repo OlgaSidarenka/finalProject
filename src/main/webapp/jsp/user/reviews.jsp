@@ -8,7 +8,7 @@
 <head><title>Welcome</title>
 </head>
 <body>
-<%@ include file="header.jsp" %>
+<%@ include file="../header.jsp" %>
 <%@ include file="menuUser.jsp" %>
 <p>Reviews page</p>
 ${alien}, hello!
@@ -32,9 +32,8 @@ ${alien}, hello!
         <form action="controller">
             <td>
                 <input type="hidden" name="command" value="add-review"/>
-                <label>Введите комментарий</label><br>
                 <input type="hidden" value="${user.login}" name="login"/>
-                <textarea name="textReview" cols="70" rows="5" placeholder="Enter review"></textarea><br>
+                <textarea name="textReview" cols="70" rows="5" placeholder="Enter review"/><br>
             </td>
             <td>
                 <input type="hidden" value="${alien}" name="alienId"/>

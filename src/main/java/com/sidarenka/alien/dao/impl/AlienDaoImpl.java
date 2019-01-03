@@ -153,13 +153,13 @@ public class AlienDaoImpl implements AlienDao {
             close(connection);
         }
     }
-    public Alien findAlienByName1(String alienName) throws DaoException {
+    public Alien findAlienInformationByName(String alienName) throws DaoException {
         ProxyConnection connection = null;
         PreparedStatement statement = null;
         Alien alien=null;
         try {
             connection = ConnectionPool.getInstance().takeConnection();
-            statement = connection.prepareStatement(SQL_FIND_ALIEN_BY_NAME);
+            statement = connection.prepareStatement(SQL_TAKE_ALIEN_INFORMATION_BY_NAME);
             statement.setString(1, alienName);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -289,4 +289,23 @@ public class AlienDaoImpl implements AlienDao {
             close(connection);
         }
     }
+
+
+    public void updateAlienDescription(String alienDescription, String alienName) throws DaoException {
+        ProxyConnection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = ConnectionPool.getInstance().takeConnection();
+            statement = connection.prepareStatement(SQL_UPDATE_ALIEN_DESCRIPTION);
+            statement.setString(1, alienDescription);
+            statement.setString(2, alienName);
+            statement.executeUpdate();
+        } catch (ConnectionPoolException | SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            close(statement);
+            close(connection);
+        }
+    }
+
 }

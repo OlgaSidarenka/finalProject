@@ -35,12 +35,11 @@ public class AddAlienCommand implements Command {
                 page = ConfigurationManager.getProperty("path.page.new-alien-form-page");
             } else {
                 aliens = alienService.selectAll();
-              //  message = MessageManager.getProperty("message.addAlien");
-                //request.setAttribute("infoData", message);
+                message = MessageManager.getProperty("message.addAlien");
+                request.setAttribute("infoData", message);
                 request.setAttribute("aliens", aliens);
                 page = ConfigurationManager.getProperty("path.page.new-alien-form-page");
             }
-            // aliens = alienService.selectAll();
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
         }

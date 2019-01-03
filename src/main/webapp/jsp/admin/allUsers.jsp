@@ -8,7 +8,7 @@
     <link href="css/table.css" rel="stylesheet">
 </head>
 <html>
-<%@ include file="header.jsp" %>
+<%@ include file="../header.jsp" %>
 <%@ include file="menuAdmin.jsp" %>
 
 <table>

@@ -22,6 +22,7 @@ public class CommandMap {
             this.put(CommandType.CHANGE_USER_STATUS, new ChangeUserStatusCommand());
             this.put(CommandType.RATE_ALIEN, new RateAlienCommand());
             this.put(CommandType.SHOW_ALIEN_BY_NAME, new ShowAlienByNameCommand());
+            this.put(CommandType.UPDATE_ALIEN, new UpdateAlienCommand());
         }
     };
 

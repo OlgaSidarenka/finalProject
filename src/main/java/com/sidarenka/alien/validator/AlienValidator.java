@@ -9,4 +9,7 @@ public class AlienValidator {
         return (name.matches(ALIEN_NAME_PATTERN)&&homeland.matches(ALIEN_HOMELAND_PATTERN)
                 &&description.matches(ALIEN_DESCRIPTION_PATTERN));
     }
+    public static boolean validateAlienDescription(String description){
+        return (description.matches(ALIEN_DESCRIPTION_PATTERN));
+    }
 }

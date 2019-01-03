@@ -9,7 +9,7 @@
     <link href="css/index.css" rel="stylesheet">
 </head>
 <body>
-<%@ include file="header.jsp" %>
+<%@ include file="../header.jsp" %>
 <%@ include file="menuUser.jsp" %>
 
 

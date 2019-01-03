@@ -2,13 +2,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <fmt:setBundle basename="jsp"/>
-
 <head>
     <link href="css/index.css" rel="stylesheet">
     <link href="css/table.css" rel="stylesheet">
 </head>
 <html>
-<%@ include file="header.jsp" %>
+<%@ include file="../header.jsp" %>
 <%@ include file="menuAdmin.jsp" %>
 <table>
     <caption><h1><fmt:message key="label.tableAlienName"/></h1>
@@ -26,6 +25,7 @@
         <th><fmt:message key="label.alienDescription"/></th>
         <th><fmt:message key="label.alienHomeland"/></th>
         <th><fmt:message key="label.alienAverageMark"/></th>
+        <th><fmt:message key="label.alienNewDescription"/></th>
     </tr>
     <c:forEach var="aliens" items="${aliens}">
         <td><c:out value=" ${aliens.alienId}"/></td>
@@ -33,21 +33,14 @@
         <td><c:out value=" ${aliens.description}"/></td>
         <td><c:out value=" ${aliens.homeland.homelandName}"/></td>
         <td><c:out value=" ${aliens.averageMark}"/></td>
-        <td>
-            <form method="POST" action="controller">
+        <form method="GET" action="controller">
+            <td><textarea name="newDescription" cols="20" rows="2"></textarea></td>
+            <td>
                 <input type="hidden" name="command" value="update-alien"/>
-                <input type="hidden" value="${aliens.alienId}" name="alienId"/>
+                <input type="hidden" value="${aliens.alienName}" name="alienName"/>
                 <input value="update" type="submit">
-            </form>
-        </td>
-        <td>
-        <form method="POST" action="controller">
-        <input type="hidden" name="command" value="dell-alien"/>
-        <input type="hidden" value="${aliens.alienId}" name="alienId"/>
-        <input value="Delete" type="submit">
         </form>
         </td>
-
         <br>
         </tr>
     </c:forEach>
