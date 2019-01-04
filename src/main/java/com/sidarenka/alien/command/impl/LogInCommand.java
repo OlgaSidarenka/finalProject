@@ -41,7 +41,8 @@ public class LogInCommand implements Command {
         if (currentUser != null) {
             HttpSession session = request.getSession();
             session.setAttribute("user", currentUser);
-
+            RoleType userRole=currentUser.getUserRole();
+            session.setAttribute("userRole", userRole);
             List<Alien> aliens = null;
             try {
                 aliens = alienService.selectAll();

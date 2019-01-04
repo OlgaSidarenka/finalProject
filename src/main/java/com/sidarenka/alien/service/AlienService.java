@@ -53,16 +53,16 @@ public class AlienService {
         return alien;
     }
 
-    public Alien findAlienByName(String alienName) throws ServiceException {
+    public List<Alien> findAlienByName(String alienName) throws ServiceException {
         DaoFactory daoFactory = DaoFactory.getInstance();
         AlienDaoImpl alienDaoImpl = daoFactory.getAlienDaoImpl();
-        Alien alien = new Alien();
+        List<Alien> aliens = new ArrayList<>();
         try {
-            alien = alienDaoImpl.findAlienInformationByName(alienName);
+            aliens = alienDaoImpl.findAlienInformationByName(alienName);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
-        return alien;
+        return aliens;
     }
 
     public Review addReview(String textReview, long alienId, long userId) throws ServiceException {

@@ -7,7 +7,7 @@ public class SqlQuery {
     public static final String SQL_FIND_BY_LOGIN = "SELECT * FROM user WHERE login =?";
     public static final String SQL_FIND_USER_BY_ID = "SELECT * FROM user WHERE userId =?";
     public static final String SQL_SELECT_AII_USERS = "SELECT * FROM user WHERE roleId=2";
-    public static final String SQL_UPDATE_USER_STATUS="UPDATE user SET statusId=? WERE login=?";
+    public static final String SQL_UPDATE_USER_STATUS="UPDATE user SET statusId=? WHERE login=?";
     //Alien
     public static final String SQL_SELECT_AII_ALIENS = "SELECT alien.alienName, homeland.homelandId, homeland.homelandName," +
             "alien.alienDescription,AVG(marks.mark), alien.alienId  FROM alien  LEFT JOIN marks " +
@@ -22,7 +22,7 @@ public class SqlQuery {
     public static final String SQL_TAKE_ALIEN_INFORMATION_BY_NAME = "SELECT alien.alienId,alien.alienName," +
             " homeland.homelandId, homeland.homelandName, alien.alienDescription,AVG(marks.mark) " +
             "FROM alien  LEFT JOIN marks ON alien.alienId=marks.alienId LEFT JOIN homeland " +
-            "ON alien.homelandId=homeland.homelandId WHERE alienName=?";
+            "ON alien.homelandId=homeland.homelandId WHERE alienName LIKE ? GROUP BY alien.alienName";
     public static final String SQL_FIND_ALIEN_BY_NAME = "SELECT * FROM alien WHERE alienName=?";
     public static final String SQL_FIND_ALIEN_MARK_FROM_USER = "SELECT mark FROM marks WHERE userId=? AND alienId=?";
     public static final String SQL_INSERT_ALIEN_MARK = "INSERT INTO marks (userId,alienId,mark) VALUES(?,?,?)";

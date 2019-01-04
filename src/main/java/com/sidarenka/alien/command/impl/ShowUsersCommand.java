@@ -21,8 +21,8 @@ public class ShowUsersCommand implements Command {
     public String execute(HttpServletRequest request) {
         String page = null;
         try {
-            List<User> users = userService.selectAll();
-            request.setAttribute("users", users);
+            List<User>users=userService.selectAll();
+            request.setAttribute("users",users);
             page = ConfigurationManager.getProperty("path.page.users-page");
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);

@@ -1,5 +1,5 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <fmt:setBundle basename="jsp"/>
 <head>
@@ -11,7 +11,6 @@
 </head>
 <body>
 
-<%--<%@ include file="../header.jsp" %>--%>
 
 <%@ include file="menuAdmin.jsp" %>
 <div><h3><fmt:message key="label.tableUserName"/></h3></div>
@@ -29,25 +28,24 @@
     <tbody>
     <tr>
         <c:forEach var="users" items="${users}">
-            <td><c:out value=" ${users.login}"/></td>
-            <td><c:out value=" ${users.password}"/></td>
-            <td><c:out value=" ${users.email}"/></td>
-            <td><c:out value=" ${users.userStatus}"/></td>
-            <td>
-                <form action="controller" method="POST">
-                    <input type="hidden" name="command" value="change-user-status"/>
-                    <input type="hidden" name="selectedUser" value="${users.login}"/>
-                    <select class="form-control form-control-sm" name="selectedStatus" onchange="this.form.submit()">
-                        <option value="">change status</option>
-                        <option value="1">Newcomer</option>
-                        <option value="2">Experienced</option>
-                        <option value="3">Blocked</option>
-                    </select>
-                </form>
-            </td>
-      </tr>
+        <td><c:out value=" ${users.login}"/></td>
+        <td><c:out value=" ${users.password}"/></td>
+        <td><c:out value=" ${users.email}"/></td>
+        <td><c:out value=" ${users.userStatus}"/></td>
+        <td>
+            <form action="controller" method="POST">
+                <input type="hidden" name="command" value="change-user-status"/>
+                <input type="hidden" name="selectedUser" value="${users.login}"/>
+                <select class="form-control form-control-sm" name="selectedStatus" onchange="this.form.submit()">
+                    <option value="">change status</option>
+                    <option value="1">Newcomer</option>
+                    <option value="2">Experienced</option>
+                    <option value="3">Blocked</option>
+                </select>
+            </form>
+        </td>
+    </tr>
     </c:forEach>
     </tbody>
 </table>
 </body>
-</html>

@@ -153,14 +153,15 @@ public class AlienDaoImpl implements AlienDao {
             close(connection);
         }
     }
-    public Alien findAlienInformationByName(String alienName) throws DaoException {
+    public List<Alien> findAlienInformationByName(String alienName) throws DaoException {
         ProxyConnection connection = null;
         PreparedStatement statement = null;
+        List<Alien>aliens=new ArrayList<>();
         Alien alien=null;
         try {
             connection = ConnectionPool.getInstance().takeConnection();
             statement = connection.prepareStatement(SQL_TAKE_ALIEN_INFORMATION_BY_NAME);
-            statement.setString(1, alienName);
+            statement.setString(1, alienName+'%');
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 alien = new Alien();
@@ -169,6 +170,7 @@ public class AlienDaoImpl implements AlienDao {
                 alien.setDescription(resultSet.getString(ALIEN_DESCRIPTION));
                 alien.setHomeland(new Homeland(resultSet.getLong(HOMELAND_ID), resultSet.getString(HOMELAND_NAME)));
                 alien.setAverageMark(resultSet.getDouble(AVERAGE_MARK));
+                aliens.add(alien);
 
             }
         } catch (ConnectionPoolException | SQLException e) {
@@ -178,7 +180,7 @@ public class AlienDaoImpl implements AlienDao {
             close(statement);
             close(connection);
         }
-        return alien;
+        return aliens;
     }
 
 

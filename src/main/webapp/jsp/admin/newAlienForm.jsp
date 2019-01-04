@@ -4,10 +4,8 @@
 <fmt:setBundle basename="jsp"/>
 <head>
     <link href="css/index.css" rel="stylesheet">
-    <link href="css/table.css" rel="stylesheet">
 </head>
 <html>
-<%@ include file="../header.jsp" %>
 <%@ include file="menuAdmin.jsp" %>
 <div class="login-page">
     <div class="form">
@@ -23,10 +21,6 @@
             <fmt:message key="label.alienDescription"/> name="alienDescription" required value=""/>
             <fmt:message key="label.submit.send" var="buttonValue"/>
             <input type="submit" id="submit" value="${buttonValue}">
-            <%--<p class="message"><fmt:message key="label.notregistrated"/> <a--%>
-            <%--href="controller?command=goToRegistrationPage"><fmt:message key="label.registration"/></a></p>--%>
-            <%--<p align="center" class="message"> ${errorLoginPassMessage} <br/> ${wrongAction} <br/> ${nullPage} </p>--%>
-            <%--</form>--%>
             <c:if test="${not empty infoData}">
             <div class="alert-danger" align="centre">
                     ${infoData}

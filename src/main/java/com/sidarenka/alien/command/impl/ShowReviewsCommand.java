@@ -17,16 +17,18 @@ import static com.sidarenka.alien.dao.AbstractDao.logger;
 
 public class ShowReviewsCommand implements Command {
     private static final String PARAM_ALIEN_ID = "alienId";
+    private static final String PARAM_ALIEN_NAME = "alienName";
     private AlienService alienService = new AlienService();
     String page;
 
     @Override
     public String execute(HttpServletRequest request) {
         long alienId = Long.parseLong(request.getParameter(PARAM_ALIEN_ID));
-      //  Alien alien=alienService.defineAlien(alienId);
-        try {
+        String alienName=request.getParameter(PARAM_ALIEN_NAME);
+         try {
             List<Review> reviews = alienService.findReviews(alienId);
             request.setAttribute("alien", alienId);
+             request.setAttribute("alienName", alienName);
             request.setAttribute("reviews", reviews);
             page = ConfigurationManager.getProperty("path.page.reviews-page");
         }catch (ServiceException e) {

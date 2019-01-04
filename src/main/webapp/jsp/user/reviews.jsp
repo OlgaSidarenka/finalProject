@@ -2,23 +2,22 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <fmt:setBundle basename="jsp"/>
-<link href="css/index.css" rel="stylesheet">
-<link href="css/table.css" rel="stylesheet">
 <html>
-<head><title>Welcome</title>
+<head>
+    <title><fmt:message key="label.title.review"/></title>
 </head>
 <body>
-<%@ include file="../header.jsp" %>
 <%@ include file="menuUser.jsp" %>
-<p>Reviews page</p>
-${alien}, hello!
-<table>
+<h3>${alienName}</h3>
+<table class="table table-hover table-sm">
+    <thead class="thead-light">
     <tr>
-        <th>user login</th>
-        <th>review</th>
-        <th>date</th>
-
+        <th><fmt:message key="label.usersLogin"/></th>
+        <th><fmt:message key="label.review"/></th>
+        <th><fmt:message key="label.data"/></th>
     </tr>
+    </thead>
+    <tbody>
     <tr>
         <c:forEach var="reviews" items="${reviews}">
         <td><c:out value=" ${reviews.login}"></c:out></td>
@@ -26,22 +25,24 @@ ${alien}, hello!
         <td><c:out value=" ${reviews.dateReview}"></c:out></td>
     </tr>
     </c:forEach>
+    </tbody>
 </table>
-<table>
+<table class="table table-hover table-sm">
+    <tbody>
     <tr>
         <form action="controller">
             <td>
                 <input type="hidden" name="command" value="add-review"/>
                 <input type="hidden" value="${user.login}" name="login"/>
-                <textarea name="textReview" cols="70" rows="5" placeholder="Enter review"/><br>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="textReview" cols="70"placeholder="Enter review"></textarea>
             </td>
             <td>
                 <input type="hidden" value="${alien}" name="alienId"/>
-                <input type="submit" id="submit" value="add review">
+                <input class="btn btn-outline-success"type="submit" id="submit" value="add review">
             </td>
         </form>
     </tr>
+    </tbody>
 </table>
-<a href="controller?command=Show-Aliens">Logout</a>
 </body>
 </html>

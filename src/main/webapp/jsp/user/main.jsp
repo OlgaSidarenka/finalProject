@@ -5,20 +5,17 @@
 <html>
 <head>
     <title>Welcome</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-    <link href="css/index.css" rel="stylesheet">
+    <%--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">--%>
+    <link href="css/menu.css" rel="stylesheet">
 </head>
 <body>
-<%@ include file="../header.jsp" %>
+<%--<%@ include file="../header.jsp" %>--%>
 <%@ include file="menuUser.jsp" %>
-
-
 <input type="hidden" name="userId" value=${user.userId}/>
-<%--${user.login}, ${user.userRole}, hello!--%>
-<hr/>
-<table>
-    <caption><h1><fmt:message key="label.tableAlienName"/></h1></caption>
 
+<table class="table table-hover table-sm">
+    <caption><h3><fmt:message key="label.tableAlienName"/></h3></caption>
+    <thead class="thead-light">
     <tr>
         <th><fmt:message key="label.id"/></th>
         <th><fmt:message key="label.alienName"/></th>
@@ -26,6 +23,8 @@
         <th><fmt:message key="label.alienHomeland"/></th>
         <th><fmt:message key="label.alienAverageMark"/></th>
     </tr>
+    </thead>
+    <tbody>
     <c:forEach var="aliens" items="${aliens}">
         <td><c:out value=" ${aliens.alienId}"></c:out></td>
         <td><c:out value=" ${aliens.alienName}"></c:out></td>
@@ -52,14 +51,14 @@
             <form method="POST" action="controller">
                 <input type="hidden" name="command" value="see-reviews"/>
                 <input type="hidden" value="${aliens.alienId}" name="alienId"/>
+                <input type="hidden" value="${aliens.alienName}" name="alienName"/>
                 <fmt:message key="label.submit.seeReviews" var="buttonValue"/>
-                <input type="submit" id="submit" value="${buttonValue}">
-
+                <input class="btn btn-outline-success btn-sm" type="submit" id="submit" value="${buttonValue}">
             </form>
         </td>
-        <br>
         </tr>
     </c:forEach>
+    </tbody>
 </table>
 <form action="controller" method="POST">
     <div class="stars-rating">
@@ -72,6 +71,5 @@
 </fieldset>
     </div>
 </form>
-<a href="controller?command=logout">Logout</a>
 </body>
 </html>

@@ -16,5 +16,6 @@ public enum CommandType {
     CHANGE_USER_STATUS,
     RATE_ALIEN,
     SHOW_ALIEN_BY_NAME,
-    UPDATE_ALIEN
+    UPDATE_ALIEN,
+    SEE_USERS_REVIEW
 }
