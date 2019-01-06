@@ -2,6 +2,7 @@ package com.sidarenka.alien.dao;
 
 import com.sidarenka.alien.entity.Alien;
 import com.sidarenka.alien.entity.Homeland;
+import com.sidarenka.alien.entity.Review;
 
 import java.util.List;
 

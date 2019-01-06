@@ -23,7 +23,7 @@ public class CommandMap {
             this.put(CommandType.RATE_ALIEN, new RateAlienCommand());
             this.put(CommandType.SHOW_ALIEN_BY_NAME, new ShowAlienByNameCommand());
             this.put(CommandType.UPDATE_ALIEN, new UpdateAlienCommand());
-            this.put(CommandType.SEE_USERS_REVIEW, new ViewUserReviewsCommand());
+            this.put(CommandType.SEE_USER_REVIEWS, new ViewUserReviewsCommand());
         }
     };
 

@@ -4,6 +4,7 @@
 <fmt:setBundle basename="jsp"/>
 <html>
 <head>
+
     <title><fmt:message key="label.title.review"/></title>
 </head>
 <body>
@@ -44,5 +45,7 @@
     </tr>
     </tbody>
 </table>
+<script type="text/javascript" src="${pageContext.request.contextPath}\js\pagination.js"></script>
+<%@ include file="/jsp/footer.jsp" %>
 </body>
 </html>

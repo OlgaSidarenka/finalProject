@@ -5,7 +5,9 @@
 <html>
 <head>
     <title>Welcome</title>
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
     <%--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">--%>
+
     <link href="css/menu.css" rel="stylesheet">
 </head>
 <body>
@@ -37,13 +39,18 @@
                 <input type="hidden" value="${user.login}" name="login"/>
                 <input type="hidden" value="${aliens.alienId}" name="alienId"/>
                 <div class="star-rating">
-                    <%--<fieldset>--%>
-                        <input onchange="form.submit()"  type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Outstanding">5 stars</label>
-                        <input onchange="form.submit()"  type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Very Good">4 stars</label>
-                        <input onchange="form.submit()"  type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Good">3 stars</label>
-                        <input onchange="form.submit()"  type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Poor">2 stars</label>
-                        <input onchange="form.submit()"  type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Very Poor">1 star</label>
-                    <%--</fieldset>--%>
+                    <fieldset>
+                        <input onchange="form.submit()"  type="radio" id="star5" name="rating"
+                               value="5"/><label for="star5" title="Outstanding">5</label>
+                        <input onchange="form.submit()" type="radio" id="star4" name="rating"
+                               value="4"/><label for="star4" title="Very Good">4</label>
+                        <input onchange="form.submit()" type="radio" id="star3" name="rating" value="3"/><label
+                            for="star3" title="Good">3</label>
+                        <input onchange="form.submit()" type="radio" id="star2" name="rating" value="2"/><label
+                            for="star2" title="Poor">2</label>
+                        <input onchange="form.submit()" type="radio" id="star1" name="rating" value="1"/><label
+                            for="star1" title="Very Poor">1</label>
+                    </fieldset>
                 </div>
             </form>
         </td>
@@ -60,16 +67,8 @@
     </c:forEach>
     </tbody>
 </table>
-<form action="controller" method="POST">
-    <div class="stars-rating">
-<fieldset>
-            <input type="radio" id="star6" name="rating" value="5" /><label for="star5" title="Outstanding">5 stars</label>
-            <input type="radio" id="star7" name="rating" value="4" /><label for="star4" title="Very Good">4 stars</label>
-            <input type="radio" id="star8" name="rating" value="3" /><label for="star3" title="Good">3 stars</label>
-            <input type="radio" id="star9" name="rating" value="2" /><label for="star2" title="Poor">2 stars</label>
-            <input type="radio" id="star10" name="rating" value="1" /><label for="star1" title="Very Poor">1 star</label>
-</fieldset>
-    </div>
 </form>
+<script type="text/javascript" src="${pageContext.request.contextPath}\js\pagination.js"></script>
+<%@ include file="/jsp/footer.jsp" %>
 </body>
 </html>

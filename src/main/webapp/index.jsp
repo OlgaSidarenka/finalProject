@@ -1,4 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
+<%@ taglib uri="/WEB-INF/footerTag.tld" prefix="footer"%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="language" value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}" scope="session" />
@@ -26,17 +29,17 @@
                 <%--</fieldset>--%>
         <%--</div>--%>
     <%--</form>--%>
-    <%--<form action="controller" method="POST">--%>
-    <%--<div class="star-rating">--%>
-        <%--<fieldset>--%>
-            <%--<input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Outstanding">5 stars</label>--%>
-            <%--<input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Very Good">4 stars</label>--%>
-            <%--<input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Good">3 stars</label>--%>
-            <%--<input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Poor">2 stars</label>--%>
-            <%--<input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Very Poor">1 star</label>--%>
-        <%--</fieldset>--%>
-    <%--</div>--%>
-    <%--</form>--%>
+    <%--&lt;%&ndash;<form action="controller" method="POST">&ndash;%&gt;--%>
+    <%--&lt;%&ndash;<div class="star-rating">&ndash;%&gt;--%>
+        <%--&lt;%&ndash;<fieldset>&ndash;%&gt;--%>
+            <%--&lt;%&ndash;<input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Outstanding">5 stars</label>&ndash;%&gt;--%>
+            <%--&lt;%&ndash;<input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Very Good">4 stars</label>&ndash;%&gt;--%>
+            <%--&lt;%&ndash;<input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Good">3 stars</label>&ndash;%&gt;--%>
+            <%--&lt;%&ndash;<input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Poor">2 stars</label>&ndash;%&gt;--%>
+            <%--&lt;%&ndash;<input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Very Poor">1 star</label>&ndash;%&gt;--%>
+        <%--&lt;%&ndash;</fieldset>&ndash;%&gt;--%>
+    <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
+    <%--&lt;%&ndash;</form>&ndash;%&gt;--%>
 
     <%--<div class="stars">--%>
         <%--<form action="">--%>
@@ -52,6 +55,8 @@
             <%--<label class="star star-1" for="star-1"></label>--%>
         <%--</form>--%>
     <%--</div>--%>
+
+
 
     <form  method="POST" action="controller">
         <input type="hidden" name="command" value="change-language"/>

@@ -24,7 +24,7 @@ public class AddAlienCommand implements Command {
     public String execute(HttpServletRequest request) {
         String alienName = request.getParameter(ALIEN_NAME);
         String alienHomeland = request.getParameter(ALIEN_HOMELAND);
-        String alienDescription = request.getParameter(ALIEN_DESCRIPTION);
+        String alienDescription = request.getParameter(ALIEN_DESCRIPTION).replaceAll("<","");
         String page = null;
         String message;
         try {

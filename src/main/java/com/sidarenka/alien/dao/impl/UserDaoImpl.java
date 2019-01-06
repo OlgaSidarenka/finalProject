@@ -201,6 +201,31 @@ public class UserDaoImpl implements UserDao {
         return null;
     }
 
+    public List<Review> findUserReviews(long userId) throws DaoException {
+        ProxyConnection connection = null;
+        PreparedStatement statement = null;
+        List<Review> reviews = new ArrayList<>();
+        try {
+            connection = ConnectionPool.getInstance().takeConnection();
+            statement = connection.prepareStatement(SQL_SELECT_USER_REVIEWS);
+            statement.setLong(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Review review = new Review();
+                review.setAlienName(resultSet.getString(ALIEN_NAME));
+                review.setLogin(resultSet.getString(USER_LOGIN));
+                review.setTextReview(resultSet.getString(TEXT_REVIEW));
+                review.setDateReview(resultSet.getDate(DATE_REVIEW));
+                reviews.add(review);
+            }
+        } catch (ConnectionPoolException | SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            close(statement);
+            close(connection);
+        }
+        return reviews;
+    }
 
 }
 

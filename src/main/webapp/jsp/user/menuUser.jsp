@@ -1,10 +1,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
-<%--<link href="css/menu.css" rel="stylesheet">--%>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
       integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-<%--Login: ${user.login}, <br>${user.userRole}--%>
 
 <nav class="navbar navbar-expand-lg navbar-light sticky-top" style="background-color:#8DC26F;">
+    <a class="navbar-brand" href="#">
+        <img src="${pageContext.request.contextPath}/img/alien.jpg" width="50" height="80" alt="">
+    </a>
     <a class="navbar-brand" href="#">Login: ${user.login}, <br>${user.userRole}</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>

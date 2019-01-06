@@ -17,5 +17,5 @@ public enum CommandType {
     RATE_ALIEN,
     SHOW_ALIEN_BY_NAME,
     UPDATE_ALIEN,
-    SEE_USERS_REVIEW
+    SEE_USER_REVIEWS
 }

@@ -5,6 +5,8 @@
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link href="css/footer.css" rel="stylesheet">
+
     <%--<link href="css/index.css" rel="stylesheet">--%>
     <%--<link href="css/table.css" rel="stylesheet">--%>
 
@@ -45,9 +47,20 @@
                     </select>
                 </form>
             </td>
+            <td>
+                <form method="POST" action="controller">
+                    <input type="hidden" name="command" value="see-user-reviews"/>
+                    <input type="hidden" value="${users.userId}" name="userId"/>
+
+                    <fmt:message key="label.submit.seeReviews" var="buttonValue"/>
+                    <input class="btn btn-outline-success btn-sm" type="submit" id="submit" value="${buttonValue}">
+                </form>
+            </td>
       </tr>
     </c:forEach>
     </tbody>
 </table>
+<script type="text/javascript" src="${pageContext.request.contextPath}\js\pagination.js"></script>
+<%@ include file="/jsp/footer.jsp" %>
 </body>
 </html>

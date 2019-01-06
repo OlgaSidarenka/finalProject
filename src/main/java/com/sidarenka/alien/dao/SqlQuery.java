@@ -8,6 +8,9 @@ public class SqlQuery {
     public static final String SQL_FIND_USER_BY_ID = "SELECT * FROM user WHERE userId =?";
     public static final String SQL_SELECT_AII_USERS = "SELECT * FROM user WHERE roleId=2";
     public static final String SQL_UPDATE_USER_STATUS="UPDATE user SET statusId=? WHERE login=?";
+    public static final String SQL_SELECT_USER_REVIEWS = "SELECT reviews.alienId, alien.alienName, user.login," +
+            " reviews.textReview,reviews.dateReview FROM reviews left join user on user.userId=reviews.userId" +
+            " left join alien on reviews.alienId=alien.alienId where reviews.userId=?";
     //Alien
     public static final String SQL_SELECT_AII_ALIENS = "SELECT alien.alienName, homeland.homelandId, homeland.homelandName," +
             "alien.alienDescription,AVG(marks.mark), alien.alienId  FROM alien  LEFT JOIN marks " +
