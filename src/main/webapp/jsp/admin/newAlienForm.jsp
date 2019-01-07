@@ -11,6 +11,13 @@
     <form class="login-form" name="loginForm" method="POST" action="controller">
         <h3><fmt:message key="label.alien.fillForm"/></h3>
         <input type="hidden" name="command" value="add-alien"/>
+
+        <h5>Upload File:</h5>
+        <br/>
+        <INPUT type="file" name="content">
+        <br/><br/>
+
+
         <label for="formAlienInput"> <fmt:message key="label.alienName"/> </label>
         <input type="text" class="form-control" id="formAlienInput" required
                name="alienName" value=""/>

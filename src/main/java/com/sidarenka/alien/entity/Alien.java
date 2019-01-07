@@ -4,6 +4,10 @@ public class Alien extends Entity {
     private long alienId;
     private String alienName;
     private String description;
+
+    private String image
+
+            ;
     private Homeland homeland;
     private double averageMark;
 
@@ -15,6 +19,14 @@ public class Alien extends Entity {
         this.alienName = alienName;
         this.description = description;
         this.homeland = homeland;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public long getAlienId() {

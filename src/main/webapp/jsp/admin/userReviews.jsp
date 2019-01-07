@@ -6,9 +6,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link href="css/footer.css" rel="stylesheet">
-    <script type="text/javascript" src="${pageContext.request.contextPath}\js\pagination.js"></script>
-
-</head>
+   </head>
 <body>
 
 <%@ include file="menuAdmin.jsp" %>
@@ -34,7 +32,6 @@
     </c:forEach>
     </tbody>
 </table>
-
 <script type="text/javascript" src="${pageContext.request.contextPath}\js\pagination.js"></script>
 <%@ include file="/jsp/footer.jsp" %>
 </body>

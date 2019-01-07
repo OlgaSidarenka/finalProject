@@ -11,6 +11,7 @@ import com.sidarenka.alien.service.ServiceException;
 import org.apache.logging.log4j.Level;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.sidarenka.alien.dao.AbstractDao.logger;
@@ -24,14 +25,15 @@ public class ShowReviewsCommand implements Command {
     @Override
     public String execute(HttpServletRequest request) {
         long alienId = Long.parseLong(request.getParameter(PARAM_ALIEN_ID));
-        String alienName=request.getParameter(PARAM_ALIEN_NAME);
-         try {
+        String alienName = request.getParameter(PARAM_ALIEN_NAME);
+        Alien alien = new Alien();
+        try {
+            alien = alienService.findAlienByName(alienName).get(0);
             List<Review> reviews = alienService.findReviews(alienId);
-            request.setAttribute("alien", alienId);
-             request.setAttribute("alienName", alienName);
+            request.setAttribute("alien", alien);
             request.setAttribute("reviews", reviews);
             page = ConfigurationManager.getProperty("path.page.reviews-page");
-        }catch (ServiceException e) {
+        } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
         }
         return page;

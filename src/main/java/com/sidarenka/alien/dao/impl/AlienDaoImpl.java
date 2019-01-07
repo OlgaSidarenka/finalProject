@@ -30,6 +30,7 @@ public class AlienDaoImpl implements AlienDao {
                 Alien alien = new Alien();
                 alien.setAlienId(resultSet.getLong(ALIEN_ID));
                 alien.setAlienName(resultSet.getString(ALIEN_NAME));
+                alien.setImage(resultSet.getString("image"));
                 alien.setDescription(resultSet.getString(ALIEN_DESCRIPTION));
                 alien.setHomeland(new Homeland(resultSet.getLong(HOMELAND_ID), resultSet.getString(HOMELAND_NAME)));
                 alien.setAverageMark(resultSet.getDouble(AVERAGE_MARK));
@@ -121,6 +122,9 @@ public class AlienDaoImpl implements AlienDao {
             statement.setString(1, alien.getAlienName());
             statement.setString(2, alien.getDescription());
             statement.setLong(3, alien.getHomeland().getHomelandId());
+            //TODO
+            statement.setString(4, alien.getImage());
+
             statement.executeUpdate();
         } catch (ConnectionPoolException | SQLException e) {
             throw new DaoException(e);
@@ -161,12 +165,15 @@ public class AlienDaoImpl implements AlienDao {
         try {
             connection = ConnectionPool.getInstance().takeConnection();
             statement = connection.prepareStatement(SQL_TAKE_ALIEN_INFORMATION_BY_NAME);
-            statement.setString(1, alienName+'%');
+            statement.setString(1, '%'+alienName+'%');
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 alien = new Alien();
                 alien.setAlienId(resultSet.getLong(ALIEN_ID));
                 alien.setAlienName(resultSet.getString(ALIEN_NAME));
+
+                alien.setImage(resultSet.getString("image"));
+
                 alien.setDescription(resultSet.getString(ALIEN_DESCRIPTION));
                 alien.setHomeland(new Homeland(resultSet.getLong(HOMELAND_ID), resultSet.getString(HOMELAND_NAME)));
                 alien.setAverageMark(resultSet.getDouble(AVERAGE_MARK));
@@ -182,6 +189,40 @@ public class AlienDaoImpl implements AlienDao {
         }
         return aliens;
     }
+
+    public List<Alien> takeAlienInformationByName(String alienName) throws DaoException {
+        ProxyConnection connection = null;
+        PreparedStatement statement = null;
+        List<Alien>aliens=new ArrayList<>();
+        Alien alien=null;
+        try {
+            connection = ConnectionPool.getInstance().takeConnection();
+            statement = connection.prepareStatement(SQL_TAKE_ALIEN_INFORMATION_BY_NAME);
+            statement.setString(1, alienName);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                alien = new Alien();
+                alien.setAlienId(resultSet.getLong(ALIEN_ID));
+                alien.setAlienName(resultSet.getString(ALIEN_NAME));
+
+                alien.setImage(resultSet.getString("image"));
+
+                alien.setDescription(resultSet.getString(ALIEN_DESCRIPTION));
+                alien.setHomeland(new Homeland(resultSet.getLong(HOMELAND_ID), resultSet.getString(HOMELAND_NAME)));
+                alien.setAverageMark(resultSet.getDouble(AVERAGE_MARK));
+                aliens.add(alien);
+
+            }
+        } catch (ConnectionPoolException | SQLException e) {
+            throw new DaoException(e);
+        } finally {
+
+            close(statement);
+            close(connection);
+        }
+        return aliens;
+    }
+
 
 
     public List<Review> findAlienReviews(long alienId) throws DaoException {

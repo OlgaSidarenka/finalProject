@@ -3,7 +3,6 @@ package com.sidarenka.alien.command.impl;
 import com.sidarenka.alien.command.Command;
 import com.sidarenka.alien.entity.Alien;
 import com.sidarenka.alien.entity.RoleType;
-import com.sidarenka.alien.entity.User;
 import com.sidarenka.alien.resource.ConfigurationManager;
 import com.sidarenka.alien.service.AlienService;
 import com.sidarenka.alien.service.ServiceException;
@@ -28,7 +27,7 @@ public class ShowAlienByNameCommand implements Command {
         HttpSession session = request.getSession();
         RoleType userType= (RoleType) session.getAttribute("userRole");
         try{
-            aliens=alienService.findAlienByName(alienName);
+            aliens=alienService.findAliensByNameFragment(alienName);
              request.setAttribute("aliens", aliens);
              page = userType==RoleType.ADMIN?ConfigurationManager.getProperty("path.page.admin-page"):ConfigurationManager.getProperty("path.page.main-page");
         }

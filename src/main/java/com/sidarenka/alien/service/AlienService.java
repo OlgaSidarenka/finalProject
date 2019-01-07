@@ -53,12 +53,23 @@ public class AlienService {
         return alien;
     }
 
-    public List<Alien> findAlienByName(String alienName) throws ServiceException {
+    public List<Alien> findAliensByNameFragment(String alienName) throws ServiceException {
         DaoFactory daoFactory = DaoFactory.getInstance();
         AlienDaoImpl alienDaoImpl = daoFactory.getAlienDaoImpl();
         List<Alien> aliens = new ArrayList<>();
         try {
             aliens = alienDaoImpl.findAlienInformationByName(alienName);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        return aliens;
+    }
+    public List<Alien> findAlienByName(String alienName) throws ServiceException {
+        DaoFactory daoFactory = DaoFactory.getInstance();
+        AlienDaoImpl alienDaoImpl = daoFactory.getAlienDaoImpl();
+        List<Alien> aliens = new ArrayList<>();
+        try {
+            aliens = alienDaoImpl.takeAlienInformationByName(alienName);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -98,7 +109,15 @@ public class AlienService {
         }
     }
 
-    public List<Alien> createAlien(String alienName, String homelandName, String alienDescription) throws ServiceException {
+    public List<Alien> createAlien(String alienName, String homelandName, String alienDescription,String image) throws ServiceException {
+
+
+
+
+
+
+
+
         if (!AlienValidator.validateAlienData(alienName, homelandName, alienDescription)) {
             throw new ServiceException("Incorrect data for new Alien");
         }
@@ -111,6 +130,10 @@ public class AlienService {
             if (!alienDaoImpl.findAlienByName(alienName)) {
                 Alien alien = new Alien();
                 alien.setAlienName(alienName);
+                //TODO
+                alien.setImage(image);
+
+
                 alienDaoImpl.findHomelandByName(homelandName);
                 Homeland homeland = new Homeland(homelands.get(0).getHomelandId(), homelands.get(0).getHomelandName());
                 alien.setHomeland(homeland);

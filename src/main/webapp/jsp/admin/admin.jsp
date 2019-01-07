@@ -7,14 +7,11 @@
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link href="css/footer.css" rel="stylesheet">
 
-    <%--<link href="css/table.css" rel="stylesheet">--%>
-
 </head>
 <body>
-<%--<%@ include file="../header.jsp" %>--%>
 <%@ include file="menuAdmin.jsp" %>
 <div><h3><fmt:message key="label.tableAlienName"/></h3></div>
-<table class="table table-hover table-sm">
+<table class="table table-hover table-sm" id="myTable">
     <caption><h3><fmt:message key="label.tableAlienName"/></h3></caption>
     <thead class="thead-light">
     <tr>
@@ -28,21 +25,30 @@
     </tr>
     </thead>
     <tbody>
-    <c:forEach var="aliens" items="${aliens}">
+    <tr>
+        <c:forEach var="aliens" items="${aliens}">
+
+            <%--<td><img src="${aliens.image}" class="media-object" style="width:50px"></td>--%>
         <td><c:out value=" ${aliens.alienId}"/></td>
         <td><c:out value=" ${aliens.alienName}"/></td>
-        <td><c:out value=" ${aliens.description}"/></td>
+        <td style="width: 30%"><c:out value=" ${aliens.description}"/></td>
         <td><c:out value=" ${aliens.homeland.homelandName}"/></td>
         <td><c:out value=" ${aliens.averageMark}"/></td>
+        <td>
         <form method="GET" action="controller">
-            <td><textarea class="form-control mr-sm-2" type="text" name="newDescription" cols="10" rows="1" required></textarea></td>
-            <td>
+            <%--<input type="hidden" name="command" value="update-alien"/>--%>
+                <div class="input-group mb-3">
+          <textarea class="form-control mr-sm-2" type="text" name="newDescription" cols="10" rows="1"
+                          required></textarea>
+                    <div class="input-group-append">
                 <input type="hidden" name="command" value="update-alien"/>
                 <input type="hidden" value="${aliens.alienName}" name="alienName"/>
-                <input class="btn btn-outline-success btn-sm" value="update" type="submit">
+                <input class="btn btn-outline-success btn-sm" value="update" type="submit" id="submit">
+                    </div></div>
+
         </form>
-        </td>
-          </tr>
+         </td>
+    </tr>
     </c:forEach>
     </tbody>
 </table>

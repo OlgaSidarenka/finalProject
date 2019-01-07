@@ -17,7 +17,7 @@
 
 <%@ include file="menuAdmin.jsp" %>
 <div><h3><fmt:message key="label.tableUserName"/></h3></div>
-<table class="table table-hover table-sm">
+<table class="table table-hover table-sm" id="myTable">
     <caption><h3><fmt:message key="label.tableUserName"/></h3></caption>
     <thead class="thead-light">
     <tr>
@@ -36,7 +36,7 @@
             <td><c:out value=" ${users.email}"/></td>
             <td><c:out value=" ${users.userStatus}"/></td>
             <td>
-                <form action="controller" method="POST">
+                <form action="controller" method="GET">
                     <input type="hidden" name="command" value="change-user-status"/>
                     <input type="hidden" name="selectedUser" value="${users.login}"/>
                     <select class="form-control form-control-sm" name="selectedStatus" onchange="this.form.submit()">

@@ -12,7 +12,7 @@ public class SqlQuery {
             " reviews.textReview,reviews.dateReview FROM reviews left join user on user.userId=reviews.userId" +
             " left join alien on reviews.alienId=alien.alienId where reviews.userId=?";
     //Alien
-    public static final String SQL_SELECT_AII_ALIENS = "SELECT alien.alienName, homeland.homelandId, homeland.homelandName," +
+    public static final String SQL_SELECT_AII_ALIENS = "SELECT alien.alienName, alien.image, homeland.homelandId, homeland.homelandName," +
             "alien.alienDescription,AVG(marks.mark), alien.alienId  FROM alien  LEFT JOIN marks " +
             "ON alien.alienId=marks.alienId LEFT JOIN homeland ON alien.homelandId=homeland.homelandId GROUP BY alien.alienId";
     public static final String SQL_SELECT_ALIEN_REVIEWS = "SELECT reviews.alienId, alien.alienName, user.login," +
@@ -21,8 +21,9 @@ public class SqlQuery {
     public static final String SQL_INSERT_REVIEW = "INSERT INTO reviews(alienId, userId, textReview,dateReview) VALUES(?,?,?,?)";
     public static final String SQL_FIND_ALIEN_BY_ID = "SELECT * FROM alien WHERE alienId =?";
     public static final String SQL_DELETE_ALIEN_BY_ID = "DELETE FROM alien WHERE alienId =?";
-    public static final String SQL_INSERT_ALIEN = "INSERT INTO alien (alienName,alienDescription,homelandId) VALUES(?,?,?)";
-    public static final String SQL_TAKE_ALIEN_INFORMATION_BY_NAME = "SELECT alien.alienId,alien.alienName," +
+//    public static final String SQL_INSERT_ALIEN = "INSERT INTO alien (alienName,alienDescription,homelandId) VALUES(?,?,?)";
+public static final String SQL_INSERT_ALIEN = "INSERT INTO alien (alienName,alienDescription,homelandId, image) VALUES(?,?,?,?)";
+    public static final String SQL_TAKE_ALIEN_INFORMATION_BY_NAME = "SELECT alien.alienId,alien.alienName,alien.image," +
             " homeland.homelandId, homeland.homelandName, alien.alienDescription,AVG(marks.mark) " +
             "FROM alien  LEFT JOIN marks ON alien.alienId=marks.alienId LEFT JOIN homeland " +
             "ON alien.homelandId=homeland.homelandId WHERE alienName LIKE ? GROUP BY alien.alienName";

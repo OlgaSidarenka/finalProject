@@ -15,9 +15,7 @@
             <li class="nav-item"><a href="controller?command=show-aliens" class="nav-link">
                 <fmt:message key="label.menu.showAliens"/></a>
             </li>
-            <li class="nav-item"><a href="controller?command=fill-new-alien-data" class="nav-link">
-                <fmt:message key="label.menu.addAlien"/></a>
-            </li>
+
             <li class="nav-item"><a href="controller?command=show-users" class="nav-link">
                 <fmt:message key="label.users"/></a>
             </li>

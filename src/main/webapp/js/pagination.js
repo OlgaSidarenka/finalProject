@@ -1,6 +1,7 @@
+// get the table element
 var $table = document.getElementById("myTable"),
 // number of rows per page
-    $n = 10,
+    $n =7,
 // number of rows of the table
     $rowCount = $table.rows.length,
 // get the first cell's tag name (in the first row)
@@ -21,7 +22,7 @@ if ($pageCount > 1) {
     for ($i = $j,$ii = 0; $i < $rowCount; $i++, $ii++)
         $tr[$ii] = $table.rows[$i].outerHTML;
     // create a div block to hold the buttons
-    $table.insertAdjacentHTML("afterend","<div id='buttons'></div");
+    $table.insertAdjacentHTML("afterend","<div id='buttons'></div>");
     // the first sort, default page is the first one
     sort(1);
 }
@@ -43,8 +44,6 @@ function sort($p) {
     // CSS Stuff
     document.getElementById("id"+$p).setAttribute("class","active");
 }
-
-
 // ($pCount) : number of pages,($cur) : current page, the selected one ..
 function pageButtons($pCount,$cur) {
     /* this variables will disable the "Prev" button on 1st page
@@ -61,5 +60,4 @@ function pageButtons($pCount,$cur) {
     $buttons += "<input type='button' value='Next &gt;&gt;' onclick='sort("+($cur + 1)+")' "+$nextDis+">";
     return $buttons;
 }
-
 
