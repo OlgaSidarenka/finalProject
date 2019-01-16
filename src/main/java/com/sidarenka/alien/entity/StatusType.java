@@ -1,14 +1,44 @@
 package com.sidarenka.alien.entity;
 
+/**
+ * The Enum StatusType.
+ */
 public enum StatusType {
-   NEWCOMER(1),EXPERIENCED(2), BLOCKED(3);
+   
+   /** The newcomer. */
+   NEWCOMER(1),
+/** The experienced. */
+EXPERIENCED(2), 
+ /** The blocked. */
+ BLOCKED(3);
+    
+    /** The status id. */
     private int statusId;
+    
+    /**
+     * Instantiates a new status type.
+     *
+     * @param statusId the status id
+     */
     StatusType(int statusId){
         this.statusId=statusId;
     }
+    
+    /**
+     * Gets the status id.
+     *
+     * @return the status id
+     */
     public  int getStatusId() {
         return statusId;
     }
+    
+    /**
+     * Take status.
+     *
+     * @param statusId the status id
+     * @return the status type
+     */
     public static StatusType takeStatus(int statusId)    {
         StatusType status=null;
         switch ( statusId) {

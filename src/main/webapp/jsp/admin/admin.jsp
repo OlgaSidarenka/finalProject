@@ -3,10 +3,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <fmt:setBundle basename="jsp"/>
 <head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <script src="/js/bootstrap.min.js"></script>
     <link href="css/footer.css" rel="stylesheet">
-
 </head>
 <body>
 <%@ include file="menuAdmin.jsp" %>
@@ -21,38 +20,32 @@
         <th><fmt:message key="label.alienHomeland"/></th>
         <th><fmt:message key="label.alienAverageMark"/></th>
         <th><fmt:message key="label.alienNewDescription"/></th>
-        <th></th>
     </tr>
     </thead>
     <tbody>
     <tr>
         <c:forEach var="aliens" items="${aliens}">
-
-            <%--<td><img src="${aliens.image}" class="media-object" style="width:50px"></td>--%>
         <td><c:out value=" ${aliens.alienId}"/></td>
         <td><c:out value=" ${aliens.alienName}"/></td>
         <td style="width: 30%"><c:out value=" ${aliens.description}"/></td>
         <td><c:out value=" ${aliens.homeland.homelandName}"/></td>
         <td><c:out value=" ${aliens.averageMark}"/></td>
         <td>
-        <form method="GET" action="controller">
-            <%--<input type="hidden" name="command" value="update-alien"/>--%>
+            <form method="GET" action="controller">
                 <div class="input-group mb-3">
           <textarea class="form-control mr-sm-2" type="text" name="newDescription" cols="10" rows="1"
-                          required></textarea>
+                    required></textarea>
                     <div class="input-group-append">
-                <input type="hidden" name="command" value="update-alien"/>
-                <input type="hidden" value="${aliens.alienName}" name="alienName"/>
-                <input class="btn btn-outline-success btn-sm" value="update" type="submit" id="submit">
-                    </div></div>
-
-        </form>
-         </td>
+                        <input type="hidden" name="command" value="update-alien"/>
+                        <input type="hidden" value="${aliens.alienName}" name="alienName"/>
+                        <input class="btn btn-outline-success btn-sm" value="update" type="submit" id="submit">
+                    </div>
+                </div>
+            </form>
     </tr>
     </c:forEach>
     </tbody>
 </table>
-<script type="text/javascript" src="${pageContext.request.contextPath}\js\pagination.js"></script>
 <%@ include file="/jsp/footer.jsp" %>
 </body>
 </html>

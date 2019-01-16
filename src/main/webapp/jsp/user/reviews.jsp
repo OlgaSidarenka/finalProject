@@ -5,36 +5,57 @@
 <html>
 <head>
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <%--<link rel="stylesheet" href="/css/font-awesome.min.css">--%>
+    <script src="/js/bootstrap.min.js" ></script>
     <title><fmt:message key="label.title.review"/></title>
     <link href="css/footer.css" rel="stylesheet">
     <link href="css/star.css" rel="stylesheet">
 </head>
 <body>
 <%@ include file="menuUser.jsp" %>
-<h3>${alien.homeland.homelandName}<br>
-    ${alien.alienName}
-    ${alien.averageMark}
-</h3>
-<form action="controller" method="POST">
-    <input type="hidden" name="command" value="rate-alien"/>
-    <input type="hidden" value="${user.login}" name="login"/>
-    <input type="hidden" value="${alien.alienId}" name="alienId"/>
-    <input type="hidden" value="${alien.alienName}" name="alienName"/>
-    <div class="star-rating">
-        <fieldset>
-            <input onchange="form.submit()" type="radio" id="star5" name="rating"
-                   value="5"/><label for="star5" title="Outstanding">5</label>
-            <input onchange="form.submit()" type="radio" id="star4" name="rating"
-                   value="4"/><label for="star4" title="Very Good">4</label>
-            <input onchange="form.submit()" type="radio" id="star3" name="rating" value="3"/><label
-                for="star3" title="Good">3</label>
-            <input onchange="form.submit()" type="radio" id="star2" name="rating" value="2"/><label
-                for="star2" title="Poor">2</label>
-            <input onchange="form.submit()" type="radio" id="star1" name="rating" value="1"/><label
-                for="star1" title="Very Poor">1</label>
-        </fieldset>
-    </div>
-</form>
+
+<table width="40%">
+        <tr>
+        <td width="500px">
+            <h3>
+                ${alien.homeland.homelandName}<br>
+                ${alien.alienName}
+                ${alien.averageMark}
+            </h3>
+        </td>
+            <td width="500px">
+            <div class="form-group">
+                <form action="controller" method="POST">
+                    <input type="hidden" name="command" value="rate-alien"/>
+                    <input type="hidden" value="${user.login}" name="login"/>
+                    <input type="hidden" value="${alien.alienId}" name="alienId"/>
+                    <input type="hidden" value="${alien.alienName}" name="alienName"/>
+                    <div class="star-rating">
+                        <fieldset>
+                            <input onchange="form.submit()" type="radio" id="star5" name="rating"
+                                   value="5"/><label for="star5" title="Outstanding">5</label>
+                            <input onchange="form.submit()" type="radio" id="star4" name="rating"
+                                   value="4"/><label for="star4" title="Very Good">4</label>
+                            <input onchange="form.submit()" type="radio" id="star3" name="rating" value="3"/><label
+                                for="star3" title="Good">3</label>
+                            <input onchange="form.submit()" type="radio" id="star2" name="rating" value="2"/><label
+                                for="star2" title="Poor">2</label>
+                            <input onchange="form.submit()" type="radio" id="star1" name="rating" value="1"/><label
+                                for="star1" title="Very Poor">1</label>
+                        </fieldset>
+                    </div>
+                    <c:if test="${not empty infoData}">
+                        <div class="alert-danger" align="centre">
+                                ${infoData}
+                        </div>
+                    </c:if>
+                </form>
+            </div>
+
+        </td>
+    </tr>
+</table>
 <table class="table table-hover table-sm" id="myTable">
     <thead class="thead-light">
     <tr>

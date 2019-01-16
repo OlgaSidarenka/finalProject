@@ -16,12 +16,12 @@ import java.util.List;
 
 import static com.sidarenka.alien.dao.ColumnName.*;
 import static com.sidarenka.alien.dao.SqlQuery.*;
-import static com.sidarenka.alien.entity.StatusType.NEWCOMER;
 
 public class UserDaoImpl implements UserDao {
     private static final int DEFAULT_USER_ROLE_ID = 2;
     private static final int DEFAULT_USER_STATUS_ID = 1;
 
+    @Override
     public User findByLoginAndPassword(String login, String password) throws DaoException {
         ProxyConnection connection = null;
         PreparedStatement statement = null;
@@ -36,9 +36,10 @@ public class UserDaoImpl implements UserDao {
                 String currentLogin = resultSet.getString(USER_LOGIN);
                 String currentPassword = resultSet.getString(PASSWORD);
                 String email = resultSet.getString(EMAIL);
+                long userId = resultSet.getLong(USER_ID);
                 int roleId = resultSet.getInt(ROLE_ID);
                 int statusId = resultSet.getInt(STATUS_ID);
-                user = new User(currentLogin, currentPassword, email, RoleType.takeRole(roleId), StatusType.takeStatus(statusId));
+                user = new User(userId, currentLogin, currentPassword, email, RoleType.takeRole(roleId), StatusType.takeStatus(statusId));
             }
             return user;
 
@@ -50,12 +51,11 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
-
+    @Override
     public boolean findByLogin(String login) throws DaoException {
         ProxyConnection connection = null;
         PreparedStatement statement = null;
-
-        ResultSet resultSet = null;
+        ResultSet resultSet;
         try {
             connection = ConnectionPool.getInstance().takeConnection();
             statement = connection.prepareStatement(SQL_FIND_BY_LOGIN);
@@ -70,11 +70,12 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
+    @Override
     public User findByLoginForReview(String login) throws DaoException {
         ProxyConnection connection = null;
         PreparedStatement statement = null;
         User user = null;
-        ResultSet resultSet = null;
+        ResultSet resultSet;
         try {
             connection = ConnectionPool.getInstance().takeConnection();
             statement = connection.prepareStatement(SQL_FIND_BY_LOGIN);
@@ -110,6 +111,7 @@ public class UserDaoImpl implements UserDao {
                 String encodedPassword = resultSet.getString(PASSWORD);
                 user.setPassword(PasswordDecoder.decodePassword(encodedPassword));
                 user.setEmail(resultSet.getString(EMAIL));
+                user.setCountReview(resultSet.getInt(COUNT_REVIEW));
                 user.setUserRole(RoleType.takeRole(resultSet.getInt(ROLE_ID)));
                 user.setUserStatus(StatusType.takeStatus(resultSet.getInt(STATUS_ID)));
                 users.add(user);
@@ -144,16 +146,6 @@ public class UserDaoImpl implements UserDao {
             close(statement);
             close(connection);
         }
-    }
-
-    @Override
-    public boolean delete(long id) {
-        return false;
-    }
-
-    @Override
-    public boolean delete(User entity) {
-        return false;
     }
 
     @Override
@@ -195,12 +187,25 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
-
     @Override
-    public User update(User entity) {
-        return null;
+    public void blockUserReview(long reviewId) throws DaoException {
+        ProxyConnection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = ConnectionPool.getInstance().takeConnection();
+            statement = connection.prepareStatement(SQL_BLOCK_USER_REVIEW);
+            statement.setLong(1, reviewId);
+            statement.executeUpdate();
+        } catch (ConnectionPoolException | SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            close(statement);
+            close(connection);
+        }
     }
 
+
+    @Override
     public List<Review> findUserReviews(long userId) throws DaoException {
         ProxyConnection connection = null;
         PreparedStatement statement = null;
@@ -212,6 +217,9 @@ public class UserDaoImpl implements UserDao {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Review review = new Review();
+                review.setReviewId(resultSet.getLong(REVIEW_ID));
+                review.setUserId(resultSet.getLong(USER_ID));
+                review.setUnblocked(resultSet.getBoolean(REVIEW_IS_UNBLOCKED));
                 review.setAlienName(resultSet.getString(ALIEN_NAME));
                 review.setLogin(resultSet.getString(USER_LOGIN));
                 review.setTextReview(resultSet.getString(TEXT_REVIEW));
@@ -226,6 +234,8 @@ public class UserDaoImpl implements UserDao {
         }
         return reviews;
     }
+
+
 
 }
 

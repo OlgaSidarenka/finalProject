@@ -4,15 +4,13 @@
 <fmt:setBundle basename="jsp"/>
 <html>
 <head>
-    <%--<link href="css/index.css" rel="stylesheet">--%>
-    <%--<link href="css/table.css" rel="stylesheet">--%>
 </head>
 <body>
 <h3>WRRONG COMMAND</h3>
 <img src="${pageContext.request.contextPath}/img/alien.jpg" width="300" height="450">
 <form name="goToMainPage" method="post" action="controller">
-    <input type="hidden" name="command" value="go-to-main-page">
-    <button type="submit" class="btn btn-danger">Go to main page</button>
+    <input type="hidden" name="command" value="go-to-start-page">
+    <button type="submit" class="btn btn-danger">Go to start page</button>
 </form>
 </body>
 </html>

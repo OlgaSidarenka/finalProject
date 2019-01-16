@@ -12,19 +12,11 @@ import java.sql.Statement;
 import java.util.List;
 
 public interface AbstractDao<T extends Entity> {
-    Logger logger = LogManager.getLogger();
-
+   String UNABLE_CLOSE_CONNECTION_MESSAGE="Unable to close connection";
+  Logger logger = LogManager.getLogger();
     List<T> findAll() throws DaoException;
-
     boolean findById(long id) throws DaoException;
-
-    boolean delete(long id);
-
-    boolean delete(T entity);
-
     void create(T entity) throws DaoException;
-
-    T update(T entity);
 
     default void close(Statement statement) {
         try {
@@ -32,7 +24,7 @@ public interface AbstractDao<T extends Entity> {
                 statement.close();
             }
         } catch (SQLException e) {
-            logger.log(Level.ERROR, "Unable to close connection");
+            logger.log(Level.ERROR, UNABLE_CLOSE_CONNECTION_MESSAGE);
         }
     }
 

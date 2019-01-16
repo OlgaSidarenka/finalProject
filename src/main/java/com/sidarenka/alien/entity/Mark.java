@@ -1,33 +1,75 @@
 package com.sidarenka.alien.entity;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Mark.
+ */
 public class Mark extends Entity {
+    
+    /** The user id. */
     private long userId;
+    
+    /** The alien id. */
     private long alienId;
+    
+    /** The mark. */
     private int mark;
 
+    /**
+     * Gets the user id.
+     *
+     * @return the user id
+     */
     public long getUserId() {
         return userId;
     }
 
+    /**
+     * Sets the user id.
+     *
+     * @param userId the new user id
+     */
     public void setUserId(long userId) {
         this.userId = userId;
     }
 
+    /**
+     * Gets the alien id.
+     *
+     * @return the alien id
+     */
     public long getAlienId() {
         return alienId;
     }
 
+    /**
+     * Sets the alien id.
+     *
+     * @param alienId the new alien id
+     */
     public void setAlienId(long alienId) {
         this.alienId = alienId;
     }
 
+    /**
+     * Gets the mark.
+     *
+     * @return the mark
+     */
     public int getMark() {
         return mark;
     }
 
+    /**
+     * Sets the mark.
+     *
+     * @param mark the new mark
+     */
     public void setMark(int mark) {
         this.mark = mark;
     }
+    
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -56,12 +98,15 @@ public class Mark extends Entity {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "Mark{" +
                 "userId=" + userId +
                 ", alienId=" + alienId +
-                ", mark=" + mark +
+                ", mark=" + System.out.format("%10.3f",mark) +
                 '}';
     }
 }

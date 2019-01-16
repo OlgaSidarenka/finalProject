@@ -1,36 +1,79 @@
 package com.sidarenka.alien.entity;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Homeland.
+ */
 public class Homeland extends Entity{
+    
+    /** The homeland id. */
     private long homelandId;
+    
+    /** The homeland name. */
     private String homelandName;
 
+    /**
+     * Instantiates a new homeland.
+     */
     public Homeland() {
     }
 
+    /**
+     * Instantiates a new homeland.
+     *
+     * @param homelandId the homeland id
+     * @param homelandName the homeland name
+     */
     public Homeland(long homelandId, String homelandName) {
         this.homelandId = homelandId;
         this.homelandName = homelandName;
     }
 
+    /**
+     * Instantiates a new homeland.
+     *
+     * @param homelandName the homeland name
+     */
     public Homeland(String homelandName) {
         this.homelandName = homelandName;
     }
 
+    /**
+     * Gets the homeland id.
+     *
+     * @return the homeland id
+     */
     public long getHomelandId() {
         return homelandId;
     }
 
+    /**
+     * Sets the homeland id.
+     *
+     * @param homelandId the new homeland id
+     */
     public void setHomelandId(long homelandId) {
         this.homelandId = homelandId;
     }
 
+    /**
+     * Gets the homeland name.
+     *
+     * @return the homeland name
+     */
     public String getHomelandName() {
         return homelandName;
     }
 
+    /**
+     * Sets the homeland name.
+     *
+     * @param homelandName the new homeland name
+     */
     public void setHomelandName(String homelandName) {
         this.homelandName = homelandName;
     }
+    
     @Override
     public int hashCode() {
         final int prime = 31;

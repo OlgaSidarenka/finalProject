@@ -13,39 +13,89 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.ReentrantLock;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ConnectionPool.
+ */
 public class ConnectionPool {
 
-    Logger logger = LogManager.getLogger();
+    /** The logger. */
+    static Logger logger = LogManager.getLogger();
+    
+    /** The free connections. */
     private BlockingQueue<ProxyConnection> freeConnections;
+    
+    /** The working connections. */
     private BlockingQueue<ProxyConnection> workingConnections;
+    
+    /** The Constant DEFAULT_POOL_SIZE. */
     private static final int DEFAULT_POOL_SIZE = 5;
+    
+    /** The instance. */
     private static ConnectionPool instance;
+    
+    /** The create lock. */
     private static ReentrantLock createLock = new ReentrantLock();
+    
+    /** The is create. */
     private static AtomicBoolean isCreate = new AtomicBoolean(false);
+    
+    /** The driver name. */
     private String driverName;
+    
+    /** The url. */
     private String url;
+    
+    /** The username. */
     private String username;
+    
+    /** The password. */
     private String password;
+    
+    /** The pool size. */
     private int poolSize;
 
 
 
+    /**
+     * Gets the password.
+     *
+     * @return the password
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * Sets the password.
+     *
+     * @param password the new password
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     * Gets the pool size.
+     *
+     * @return the pool size
+     */
     public int getPoolSize() {
         return poolSize;
     }
 
+    /**
+     * Sets the pool size.
+     *
+     * @param poolSize the new pool size
+     */
     public void setPoolSize(int poolSize) {
         this.poolSize = poolSize;
     }
 
+    /**
+     * Instantiates a new connection pool.
+     */
     public ConnectionPool() {
         DbResourceManager dbResourceManager = DbResourceManager.getInstance();
         this.driverName = dbResourceManager.getValue(DbParameter.DB_DRIVER);
@@ -64,6 +114,11 @@ public class ConnectionPool {
         }
     }
 
+    /**
+     * Gets the single instance of ConnectionPool.
+     *
+     * @return single instance of ConnectionPool
+     */
     public static ConnectionPool getInstance() {
         if (!isCreate.get()) {
             try {
@@ -80,6 +135,11 @@ public class ConnectionPool {
     }
 
 
+    /**
+     * Inits the.
+     *
+     * @throws ConnectionPoolException the connection pool exception
+     */
     public void init() throws ConnectionPoolException {
         try {
             Class.forName(driverName);
@@ -98,6 +158,12 @@ public class ConnectionPool {
         }
     }
 
+    /**
+     * Take connection.
+     *
+     * @return the proxy connection
+     * @throws ConnectionPoolException the connection pool exception
+     */
     public ProxyConnection takeConnection() throws ConnectionPoolException {
         ProxyConnection connection;
         try {
@@ -110,6 +176,11 @@ public class ConnectionPool {
         return connection;
     }
 
+    /**
+     * Release connection.
+     *
+     * @param connection the connection
+     */
     public void releaseConnection(ProxyConnection connection) {
         try {
             workingConnections.remove(connection);
@@ -120,6 +191,11 @@ public class ConnectionPool {
         }
     }
 
+    /**
+     * Clear connection queue.
+     *
+     * @throws SQLException the SQL exception
+     */
     private void clearConnectionQueue() throws SQLException {
         ProxyConnection connection;
         while ((connection = freeConnections.poll()) != null) {
@@ -127,6 +203,9 @@ public class ConnectionPool {
         }
     }
 
+    /**
+     * Close pool.
+     */
     public void closePool() {
         try {
         java.sql.Driver sqlDriver = DriverManager.getDriver(DbParameter.DB_URL);
@@ -141,7 +220,7 @@ public class ConnectionPool {
                 logger.log(Level.INFO, "Success pool close");
 
             } catch (SQLException e) {
-                logger.error(e.getMessage());
+                logger.error(e);
             }
         }
 

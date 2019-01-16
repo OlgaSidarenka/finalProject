@@ -11,42 +11,34 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static com.sidarenka.alien.dao.ColumnName.*;
 import static com.sidarenka.alien.dao.SqlQuery.*;
 
 public class AlienDaoImpl implements AlienDao {
+    private static char SEARCH_REGEX='%';
     @Override
     public List<Alien> findAll() throws DaoException {
         ProxyConnection connection = null;
         PreparedStatement statement = null;
-        List<Alien> aliens = new ArrayList<>();
+        List<Alien> aliens;
         try {
             connection = ConnectionPool.getInstance().takeConnection();
             statement = connection.prepareStatement(SQL_SELECT_AII_ALIENS);
             ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                Alien alien = new Alien();
-                alien.setAlienId(resultSet.getLong(ALIEN_ID));
-                alien.setAlienName(resultSet.getString(ALIEN_NAME));
-                alien.setImage(resultSet.getString("image"));
-                alien.setDescription(resultSet.getString(ALIEN_DESCRIPTION));
-                alien.setHomeland(new Homeland(resultSet.getLong(HOMELAND_ID), resultSet.getString(HOMELAND_NAME)));
-                alien.setAverageMark(resultSet.getDouble(AVERAGE_MARK));
-                aliens.add(alien);
-            }
+            aliens= buildAlienList(resultSet);
         } catch (ConnectionPoolException | SQLException e) {
             throw new DaoException(e);
         } finally {
-
             close(statement);
             close(connection);
         }
         return aliens;
     }
 
-    @Override//TODO Return List<Alien>
+    @Override
     public boolean findById(long id) throws DaoException {
         ProxyConnection connection = null;
         PreparedStatement statement = null;
@@ -63,7 +55,8 @@ public class AlienDaoImpl implements AlienDao {
             close(connection);
         }
     }
-    public boolean findMarkByUserIdAndAlienId(long userId,long alienId) throws DaoException {
+    @Override
+    public boolean findMarkByUserIdAndAlienId(long userId, long alienId) throws DaoException {
         ProxyConnection connection = null;
         PreparedStatement statement = null;
         try {
@@ -82,37 +75,6 @@ public class AlienDaoImpl implements AlienDao {
     }
 
     @Override
-    public boolean delete(long id) {
-//        ProxyConnection connection = null;
-//        PreparedStatement statement = null;
-//        ResultSet resultSet = null;
-//        try {
-//            connection = ConnectionPool.getInstance().takeConnection();
-//            statement = connection.prepareStatement(SQL_DELETE_ALIEN_BY_ID);
-//            statement.setLong(1, id);
-//            resultSet = statement.executeQuery();
-//            if (!resultSet.next()) {
-//                return null;
-//            } else {
-//                return new Alien();
-//            }
-//        } catch (ConnectionPoolException | SQLException e) {
-//            throw new DaoException(e);
-//        } finally {
-//            UserDaoImpl userDAO = new UserDaoImpl();
-//            userDAO.close(statement);
-//            userDAO.close(connection);
-//        }
-
-        return false;
-    }
-
-    @Override
-    public boolean delete(Alien entity) {
-        return false;
-    }
-
-    @Override
     public void create(Alien alien) throws DaoException {
         ProxyConnection connection = null;
         PreparedStatement statement = null;
@@ -122,9 +84,6 @@ public class AlienDaoImpl implements AlienDao {
             statement.setString(1, alien.getAlienName());
             statement.setString(2, alien.getDescription());
             statement.setLong(3, alien.getHomeland().getHomelandId());
-            //TODO
-            statement.setString(4, alien.getImage());
-
             statement.executeUpdate();
         } catch (ConnectionPoolException | SQLException e) {
             throw new DaoException(e);
@@ -132,12 +91,6 @@ public class AlienDaoImpl implements AlienDao {
             close(statement);
             close(connection);
         }
-    }
-
-    @Override
-    public Alien update(Alien alien) {
-
-        return null;
     }
 
     @Override
@@ -157,74 +110,37 @@ public class AlienDaoImpl implements AlienDao {
             close(connection);
         }
     }
-    public List<Alien> findAlienInformationByName(String alienName) throws DaoException {
+
+    @Override
+    public List<Alien> findAliensInformationByNameFragment(String alienName) throws DaoException {
         ProxyConnection connection = null;
         PreparedStatement statement = null;
-        List<Alien>aliens=new ArrayList<>();
-        Alien alien=null;
+        List<Alien> aliens = new ArrayList<>();
+        Alien alien = null;
         try {
             connection = ConnectionPool.getInstance().takeConnection();
             statement = connection.prepareStatement(SQL_TAKE_ALIEN_INFORMATION_BY_NAME);
-            statement.setString(1, '%'+alienName+'%');
+            statement.setString(1, SEARCH_REGEX + alienName +SEARCH_REGEX);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 alien = new Alien();
                 alien.setAlienId(resultSet.getLong(ALIEN_ID));
                 alien.setAlienName(resultSet.getString(ALIEN_NAME));
-
-                alien.setImage(resultSet.getString("image"));
-
                 alien.setDescription(resultSet.getString(ALIEN_DESCRIPTION));
                 alien.setHomeland(new Homeland(resultSet.getLong(HOMELAND_ID), resultSet.getString(HOMELAND_NAME)));
                 alien.setAverageMark(resultSet.getDouble(AVERAGE_MARK));
                 aliens.add(alien);
-
             }
         } catch (ConnectionPoolException | SQLException e) {
             throw new DaoException(e);
         } finally {
-
             close(statement);
             close(connection);
         }
         return aliens;
     }
 
-    public List<Alien> takeAlienInformationByName(String alienName) throws DaoException {
-        ProxyConnection connection = null;
-        PreparedStatement statement = null;
-        List<Alien>aliens=new ArrayList<>();
-        Alien alien=null;
-        try {
-            connection = ConnectionPool.getInstance().takeConnection();
-            statement = connection.prepareStatement(SQL_TAKE_ALIEN_INFORMATION_BY_NAME);
-            statement.setString(1, alienName);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                alien = new Alien();
-                alien.setAlienId(resultSet.getLong(ALIEN_ID));
-                alien.setAlienName(resultSet.getString(ALIEN_NAME));
-
-                alien.setImage(resultSet.getString("image"));
-
-                alien.setDescription(resultSet.getString(ALIEN_DESCRIPTION));
-                alien.setHomeland(new Homeland(resultSet.getLong(HOMELAND_ID), resultSet.getString(HOMELAND_NAME)));
-                alien.setAverageMark(resultSet.getDouble(AVERAGE_MARK));
-                aliens.add(alien);
-
-            }
-        } catch (ConnectionPoolException | SQLException e) {
-            throw new DaoException(e);
-        } finally {
-
-            close(statement);
-            close(connection);
-        }
-        return aliens;
-    }
-
-
-
+    @Override
     public List<Review> findAlienReviews(long alienId) throws DaoException {
         ProxyConnection connection = null;
         PreparedStatement statement = null;
@@ -234,6 +150,7 @@ public class AlienDaoImpl implements AlienDao {
             statement = connection.prepareStatement(SQL_SELECT_ALIEN_REVIEWS);
             statement.setLong(1, alienId);
             ResultSet resultSet = statement.executeQuery();
+
             while (resultSet.next()) {
                 Review review = new Review();
                 review.setAlienName(resultSet.getString(ALIEN_NAME));
@@ -251,7 +168,7 @@ public class AlienDaoImpl implements AlienDao {
         return reviews;
     }
 
-
+    @Override
     public void createReview(Review review) throws DaoException {
         ProxyConnection connection = null;
         PreparedStatement statement = null;
@@ -262,6 +179,7 @@ public class AlienDaoImpl implements AlienDao {
             statement.setLong(2, review.getUserId());
             statement.setString(3, review.getTextReview());
             statement.setDate(4, review.getDateReview());
+            statement.setBoolean(5, review.isUnblocked());
             statement.executeUpdate();
         } catch (ConnectionPoolException | SQLException e) {
             throw new DaoException(e);
@@ -291,6 +209,30 @@ public class AlienDaoImpl implements AlienDao {
     }
 
     @Override
+    public List<Homeland> findAllHomelands() throws DaoException {
+        ProxyConnection connection = null;
+        PreparedStatement statement = null;
+        List<Homeland> homelands = new ArrayList<>();
+        try {
+            connection = ConnectionPool.getInstance().takeConnection();
+            statement = connection.prepareStatement(SQL_FIND_ALL_HOMELANDS);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Homeland homeland = new Homeland();
+                homeland.setHomelandId(resultSet.getLong(HOMELAND_ID));
+                homeland.setHomelandName(resultSet.getString(HOMELAND_NAME));
+                homelands.add(homeland);
+            }
+        } catch (ConnectionPoolException | SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            close(statement);
+            close(connection);
+        }
+        return homelands;
+    }
+
+    @Override
     public List<Homeland> findHomelandByName(String homelandName) throws DaoException {
         ProxyConnection connection = null;
         PreparedStatement statement = null;
@@ -303,7 +245,7 @@ public class AlienDaoImpl implements AlienDao {
             if (resultSet.next()) {
                 Homeland homeland = new Homeland();
                 homeland.setHomelandName(homelandName);
-                homeland.setHomelandId(resultSet.getLong("homelandId"));
+                homeland.setHomelandId(resultSet.getLong(HOMELAND_ID));
                 homelands.add(homeland);
             }
         } catch (ConnectionPoolException | SQLException e) {
@@ -314,6 +256,8 @@ public class AlienDaoImpl implements AlienDao {
         }
         return homelands;
     }
+
+    @Override
     public void insertMark(Mark mark) throws DaoException {
         ProxyConnection connection = null;
         PreparedStatement statement = null;
@@ -323,7 +267,7 @@ public class AlienDaoImpl implements AlienDao {
             statement = connection.prepareStatement(SQL_INSERT_ALIEN_MARK);
             statement.setLong(1, mark.getUserId());
             statement.setLong(2, mark.getAlienId());
-            statement.setInt(3,mark.getMark());
+            statement.setInt(3, mark.getMark());
             statement.executeUpdate();
         } catch (ConnectionPoolException | SQLException e) {
             throw new DaoException(e);
@@ -333,7 +277,7 @@ public class AlienDaoImpl implements AlienDao {
         }
     }
 
-
+    @Override
     public void updateAlienDescription(String alienDescription, String alienName) throws DaoException {
         ProxyConnection connection = null;
         PreparedStatement statement = null;
@@ -349,6 +293,60 @@ public class AlienDaoImpl implements AlienDao {
             close(statement);
             close(connection);
         }
+    }
+    @Override
+    public List<Alien> takeAlienInformationByName(String alienName) throws DaoException {
+        ProxyConnection connection = null;
+        PreparedStatement statement = null;
+        List<Alien> aliens;
+        Alien alien = null;
+        try {
+            connection = ConnectionPool.getInstance().takeConnection();
+            statement = connection.prepareStatement(SQL_TAKE_ALIEN_INFORMATION_BY_NAME);
+            statement.setString(1, alienName);
+            ResultSet resultSet = statement.executeQuery();
+            aliens= buildAlienList(resultSet);
+        } catch (ConnectionPoolException | SQLException e) {
+            throw new DaoException(e);
+        } finally {
+
+            close(statement);
+            close(connection);
+        }
+        return aliens;
+    }
+    @Override
+    public List<Alien> findRatedAliensForUser(long userId) throws DaoException {
+        ProxyConnection connection = null;
+        PreparedStatement statement = null;
+        List<Alien> aliens;
+        try {
+            connection = ConnectionPool.getInstance().takeConnection();
+            statement = connection.prepareStatement(SQL_SELECT_RATED_ALIENS_FOR_USER);
+            statement.setLong(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+            aliens= buildAlienList(resultSet);
+        } catch (ConnectionPoolException | SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            close(statement);
+            close(connection);
+        }
+        return aliens;
+    }
+
+    private List<Alien> buildAlienList(ResultSet resultSet) throws SQLException {
+        List<Alien> aliens = new ArrayList<>();
+        while (resultSet.next()) {
+            Alien alien = new Alien();
+            alien.setAlienId(resultSet.getLong(ALIEN_ID));
+            alien.setAlienName(resultSet.getString(ALIEN_NAME));
+            alien.setDescription(resultSet.getString(ALIEN_DESCRIPTION));
+            alien.setHomeland(new Homeland(resultSet.getLong(HOMELAND_ID), resultSet.getString(HOMELAND_NAME)));
+            alien.setAverageMark(resultSet.getDouble(AVERAGE_MARK));
+            aliens.add(alien);
+        }
+        return aliens;
     }
 
 }

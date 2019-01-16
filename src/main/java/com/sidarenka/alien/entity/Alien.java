@@ -1,19 +1,41 @@
 package com.sidarenka.alien.entity;
 
 public class Alien extends Entity {
+    /**
+     * The alien id.
+     */
     private long alienId;
+    /**
+     * The alien name.
+     */
     private String alienName;
+    /**
+     * The alien description.
+     */
     private String description;
-
-    private String image
-
-            ;
+    /**
+     * The alien homeland.
+     */
     private Homeland homeland;
+    /**
+     * The average mark.
+     */
     private double averageMark;
 
+    /**
+     * Instantiates a new alien.
+     */
     public Alien() {
     }
 
+    /**
+     * Instantiates a new alien.
+     *
+     * @param alienId     the alien id
+     * @param alienName   the alien name
+     * @param description the description
+     * @param homeland    the homeland
+     */
     public Alien(long alienId, String alienName, String description, Homeland homeland) {
         this.alienId = alienId;
         this.alienName = alienName;
@@ -21,50 +43,93 @@ public class Alien extends Entity {
         this.homeland = homeland;
     }
 
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
+    /**
+     * Gets the alien id.
+     *
+     * @return the alien id
+     */
     public long getAlienId() {
         return alienId;
     }
+
+    /**
+     * Sets the alien id.
+     *
+     * @param alienId the new alien id
+     */
 
     public void setAlienId(long alienId) {
         this.alienId = alienId;
     }
 
+    /**
+     * Gets the alien name.
+     *
+     * @return the alien name
+     */
     public String getAlienName() {
         return alienName;
     }
 
+    /**
+     * Sets the alien name.
+     *
+     * @param alienName the new alien name
+     */
     public void setAlienName(String alienName) {
         this.alienName = alienName;
     }
 
+    /**
+     * Gets the description.
+     *
+     * @return the description
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Sets the description.
+     *
+     * @param description the new description
+     */
     public void setDescription(String description) {
         this.description = description;
     }
 
+    /**
+     * Gets the homeland.
+     *
+     * @return the homeland
+     */
     public Homeland getHomeland() {
         return homeland;
     }
 
+    /**
+     * Sets the homeland.
+     *
+     * @param homeland the new homeland
+     */
     public void setHomeland(Homeland homeland) {
         this.homeland = homeland;
     }
 
+    /**
+     * Gets the average mark.
+     *
+     * @return the average mark
+     */
     public double getAverageMark() {
         return averageMark;
     }
 
+    /**
+     * Sets the average mark.
+     *
+     * @param averageMark the new average mark
+     */
     public void setAverageMark(double averageMark) {
         this.averageMark = averageMark;
     }
