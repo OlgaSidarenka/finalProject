@@ -14,9 +14,7 @@ public class FooterTag extends TagSupport {
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
-    /* (non-Javadoc)
-     * @see javax.servlet.jsp.tagext.TagSupport#doStartTag()
-     */
+
     @Override
     public int doStartTag() throws JspException {
         try {

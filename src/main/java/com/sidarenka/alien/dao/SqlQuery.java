@@ -6,26 +6,25 @@ public class SqlQuery {
     public static final String SQL_INSERT_USER = "INSERT INTO user(login,password,email,roleId,statusId) VALUES(?,?,?,?,?)";
     public static final String SQL_FIND_BY_LOGIN = "SELECT * FROM user WHERE login =?";
     public static final String SQL_FIND_USER_BY_ID = "SELECT * FROM user WHERE userId =?";
-
     public static final String SQL_SELECT_AII_USERS = "SELECT user.userId,user.login, user.email, user.password, " +
-            "user.statusId, user.roleId, COUNT(reviews.userId) FROM user left join reviews" +
+            "user.statusId, user.roleId, COUNT(reviews.userId) FROM user LEFT JOIN reviews" +
             " on  user.userId=reviews.userId group by user.userId having user.roleId=2";
     public static final String SQL_UPDATE_USER_STATUS = "UPDATE user SET statusId=? WHERE login=?";
     public static final String SQL_SELECT_USER_REVIEWS = "SELECT reviews.alienId, alien.alienName, user.login," +
-            " reviews.textReview,reviews.dateReview, reviews.reviewId, reviews.userId, reviews.unblocked FROM reviews left join user on user.userId=reviews.userId" +
-            " left join alien on reviews.alienId=alien.alienId where reviews.userId=?";
+            " reviews.textReview,reviews.dateReview, reviews.reviewId, reviews.userId, reviews.unblocked FROM reviews" +
+            " LEFT JOIN user on user.userId=reviews.userId LEFT JOIN alien on reviews.alienId=alien.alienId where reviews.userId=?";
     public static final String SQL_BLOCK_USER_REVIEW = "UPDATE reviews SET unblocked=false WHERE reviewId=?";
-    public static final String SQL_SELECT_ALL_STATUSES = "SELECT * FROM status";
     //Alien
     public static final String SQL_SELECT_AII_ALIENS = "SELECT alien.alienName, homeland.homelandId, homeland.homelandName," +
             "alien.alienDescription, ROUND(AVG(marks.mark),2), alien.alienId  FROM alien  LEFT JOIN marks " +
-            "ON alien.alienId=marks.alienId LEFT JOIN homeland ON alien.homelandId=homeland.homelandId GROUP BY alien.alienId";
+            "ON alien.alienId=marks.alienId LEFT JOIN homeland ON alien.homelandId=homeland.homelandId GROUP BY alien.alienId " +
+            "ORDER BY ROUND(AVG(marks.mark),2) DESC";
     public static final String SQL_SELECT_ALIEN_REVIEWS = "SELECT reviews.alienId, alien.alienName, user.login," +
             " reviews.textReview,reviews.dateReview FROM reviews left join user on user.userId=reviews.userId" +
             " left join alien on reviews.alienId=alien.alienId where reviews.alienId=? AND reviews.unblocked=true";
     public static final String SQL_SELECT_RATED_ALIENS_FOR_USER=" SELECT alien.alienName, homeland.homelandId, marks.userId, homeland.homelandName,alien.alienDescription," +
             "ROUND(AVG(marks.mark),2),alien.alienId  FROM alien  LEFT JOIN marks ON alien.alienId=marks.alienId LEFT JOIN homeland ON\n" +
-            "  alien.homelandId=homeland.homelandId GROUP BY alien.alienId HAVING marks.userId=?";
+            "  alien.homelandId=homeland.homelandId GROUP BY alien.alienId  HAVING marks.userId=? ORDER BY ROUND(AVG(marks.mark),2) DESC";
     public static final String SQL_INSERT_REVIEW = "INSERT INTO reviews(alienId, userId, textReview,dateReview, unblocked) VALUES(?,?,?,?,?)";
     public static final String SQL_FIND_ALIEN_BY_ID = "SELECT * FROM alien WHERE alienId =?";
     public static final String SQL_INSERT_ALIEN = "INSERT INTO alien (alienName,alienDescription,homelandId) VALUES(?,?,?)";

@@ -12,7 +12,6 @@ import static com.sidarenka.alien.command.JspPath.INDEX_PAGE_PATH;
  * The Class StartPageCommand.
  */
 public class StartPageCommand implements Command {
-
     public Router execute(HttpServletRequest request) {
         String startPage=ConfigurationManager.getProperty(INDEX_PAGE_PATH);
         Router router = new Router();

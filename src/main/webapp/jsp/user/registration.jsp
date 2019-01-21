@@ -19,8 +19,9 @@
             <p style="margin: 0px" class="message"><fmt:message key="label.loginPattern"/></p>
             <br/> <input style="margin: 0px" type="password" name="password"
                          pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}"
-                         placeholder=<fmt:message key="label.password"/> required/>
-            <p style="margin: 0px" class="message" ><fmt:message key="label.PasswordPattern"/></p>
+                         placeholder=
+                         <fmt:message key="label.password"/> required/>
+            <p style="margin: 0px" class="message"><fmt:message key="label.PasswordPattern"/></p>
             <input style="margin: 15px" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" name="email"
                    placeholder=
                    <fmt:message key="label.email"/> required value=""/>
@@ -28,7 +29,6 @@
             <fmt:message key="label.submit.send" var="buttonValue"/>
             <input type="submit" id="submit" value="${buttonValue}">
             <p class="message"><a href="controller?command=logout"><fmt:message key="label.submit.backToLogin"/></a></p>
-            <%--<p align="center" class="message"> ${errorLoginPassMessage} <br/> ${wrongAction} <br/> ${nullPage} </p>--%>
         </form>
         <c:if test="${not empty wrongInfoData}">
             <div class="alert-danger" align="centre">

@@ -39,6 +39,7 @@ public class AddAlienCommand implements Command {
             List<Homeland> homelands = alienService.showAllHomeland();
             if (aliens.isEmpty()) {
                 message = MessageManager.getProperty(MESSAGE_ALIEN_NOT_ADDED);
+                request.setAttribute(REQUEST_ATTRIBUTE_HOMELAND, homelands);
                 request.setAttribute(INFO_ATTRIBUTE, message);
             } else {
                 aliens = alienService.selectAll();

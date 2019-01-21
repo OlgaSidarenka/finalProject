@@ -1,33 +1,20 @@
 // get the table element
 var $table = document.getElementById("myTable"),
-// number of rows per page
     $n =12,
-// number of rows of the table
     $rowCount = $table.rows.length,
-// get the first cell's tag name (in the first row)
     $firstRow = $table.rows[0].firstElementChild.tagName,
-// boolean var to check if table has a head row
     $hasHead = ($firstRow === "TH"),
-// an array to hold each row
     $tr = [],
-// loop counters, to start count from rows[1] (2nd row) if the first row has a head tag
     $i,$ii,$j = ($hasHead)?1:0,
-// holds the first row if it has a (<TH>) & nothing if (<TD>)
     $th = ($hasHead?$table.rows[(0)].outerHTML:"");
-// count the number of pages
 var $pageCount = Math.ceil($rowCount / $n);
-// if we had one page only, then we have nothing to do ..
 if ($pageCount > 1) {
-    // assign each row outHTML (tag name & innerHTML) to the array
     for ($i = $j,$ii = 0; $i < $rowCount; $i++, $ii++)
         $tr[$ii] = $table.rows[$i].outerHTML;
-    // create a div block to hold the buttons
-    $table.insertAdjacentHTML("afterend","<div id='buttons'></div>");
-    // the first sort, default page is the first one
+   $table.insertAdjacentHTML("afterend","<div id='buttons'></div>");
     sort(1);
 }
 
-// ($p) is the selected page number. it will be generated when a user clicks a button
 function sort($p) {
     /* create ($rows) a variable to hold the group of rows
     ** to be displayed on the selected page,
